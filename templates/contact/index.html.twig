@@ -3,11 +3,15 @@
 {% block title %}Contact{% endblock %}
 
 {% block body %}
-    <section class="d-flex hv-100 justify-content-center align-items-center">
+    <section class="d-flex flex-column vh-100 justify-content-center align-items-center">
+        <h1>BESOIN D'AIDE ?</h1>
+        <div class=" p-4 shadow-lg">
+            <p class="text-center"> Merci de bien vouloir renseigner les champs suivants,<br> afin que nous puissions traiter votre demande,<br> et vous y répondre aux plus vite</p>
         {{ form_start(form) }}
         {{ form_errors(form) }}
         {{ form_widget(form) }}
         <button type="submit" class="btn btn-primary" > Envoyer </button>
         {{ form_end(form) }}
+        </div>
     </section>
 {% endblock %}

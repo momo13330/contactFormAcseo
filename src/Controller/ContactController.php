@@ -16,17 +16,21 @@ class ContactController extends AbstractController
     #[Route('/contact', name: 'contact')]
     public function index(Request $request, ContactService $contactService): Response
     {
-        $form = $this->createForm(ContactType::class, null);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            dd($data);
-            $contactService->processingContactForm($data);
-        }
+        try {
+            $form = $this->createForm(ContactType::class);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $contactService->processingContactForm($form->getData());
+            }
 
-        return $this->render('contact/index.html.twig', [
-            'form' => $form->createView()
-        ]);
+            return $this->render('contact/index.html.twig', [
+                'form' => $form->createView()
+            ]);
+
+        } catch (\Exception $exception) {
+            $this->addFlash('warning', $exception->getMessage());
+            return $this->redirectToRoute('contact');
+        }
     }
 
 
