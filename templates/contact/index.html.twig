@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block body %}
+    <section class="d-flex hv-100 justify-content-center align-items-center">
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-primary" > Envoyer </button>
+        {{ form_end(form) }}
+    </section>
+{% endblock %}
