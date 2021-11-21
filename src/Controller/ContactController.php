@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-
-use App\Form\Contact\ClientType;
 use App\Form\Contact\ContactType;
 use App\Service\ContactService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,6 +19,8 @@ class ContactController extends AbstractController
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
                 $contactService->processingContactForm($form->getData());
+                $this->addFlash('success', 'Votre message à bien été envoyé');
+                return $this->redirectToRoute('contact');
             }
 
             return $this->render('contact/index.html.twig', [

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="mt-5">
+        <div class="d-flex justify-content-center">
+           <h1> Connexion</h1>
+        </div>
+        <div class="container d-flex align-items-center justify-content-center ">
+            <div class="text-center shadow p-3 mb-4 bg-body rounded row" cz-shortcut-listen="true">
+                <main class="form-signin">
+                    {% if error %}
+                        <div class="text-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+                    <form action="{{ path('login') }}" method="post" class="form-signin">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="floatingInput" name="_username" required
+                                   placeholder="name@example.com">
+                            <label for="floatingInput">Email</label>
+                        </div>
+                        <div class="form-floating mb-2">
+                            <input type="password" class="form-control" id="floatingPassword" name="_password" required
+                                   placeholder="Password">
+                            <label for="floatingPassword">Mot de passe</label>
+                        </div>
+
+                        {# If you want to control the URL the user is redirected to on success #}
+                        <input type="hidden" name="_target_path" value="/"/>
+
+                        {# protection CSRF #}
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                        <button class="w-100 btn btn-lg bg-primary text-white" type="submit">
+                            Se connecter
+                        </button>
+                    </form>
+                </main>
+            </div>
+        </div>
+    </div>
+{% endblock %}
