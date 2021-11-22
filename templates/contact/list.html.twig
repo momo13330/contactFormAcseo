@@ -3,5 +3,79 @@
 {% block title %}Contact{% endblock %}
 
 {% block body %}
-    page list de contact
+    <div class="container-fluid">
+        <h1 class="text-center">Demandes de contact</h1>
+        <div class="row">
+            <div class="col-3">
+                <h4 class="py-2 mb-4">Listes des contacts</h4>
+                <div id="list-contact">
+                    {{ include('contact/_listContactEmbed.html.twig') }}
+                </div>
+            </div>
+            <div class="col-3">
+                <h4 class="py-2 mb-4">Derniers messages</h4>
+                <div id="list-message">
+                    {{ render(path('contact_message_list')) }}
+                </div>
+            </div>
+            <div class="col-6">
+                <h4 class="py-2 mb-4">Contenue du message</h4>
+                <div id="view-message">
+                    {{ render(path('message_view')) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    <script>
+        (function () {
+            let contactItems = document.getElementsByClassName('contact-item');
+            let listMessage = document.getElementById('list-message');
+            let viewMessage = document.getElementById('view-message');
+            Array.from(contactItems).forEach(function (contactItem) {
+                contactItem.addEventListener('click', function () {
+                    let contactId = contactItem.dataset.contactId;
+                    let httpRequest = new XMLHttpRequest();
+                    let url = Routing.generate('contact_message_list', {'contactId': contactId});
+                    httpRequest.open("GET", url);
+                    httpRequest.send();
+                    httpRequest.onload = function () {
+                        if (httpRequest.status === 200) {
+                            listMessage.innerHTML = httpRequest.response;
+                            viewMessage.innerHTML = "";
+                            listenMessageItems();
+                        }
+                    }
+                });
+            });
+
+            function listenMessageItems(){
+                let messageItems = document.getElementsByClassName('message-item');
+
+                Array.from(messageItems).forEach(function (messageItem) {
+                    messageItem.addEventListener('click', function () {
+                        let messageId = messageItem.dataset.messageId;
+                        let httpRequestView = new XMLHttpRequest();
+                        let urlView = Routing.generate('message_view', {'messageId': messageId});
+                        httpRequestView.open("GET", urlView);
+                        httpRequestView.send();
+                        console.log(urlView);
+                        httpRequestView.onload = function () {
+                            if (httpRequestView.status === 200) {
+                                viewMessage.innerHTML = httpRequestView.response;
+                            }
+                        }
+                    });
+                });
+            }
+
+
+        })(
+
+
+        );
+    </script>
+
 {% endblock %}

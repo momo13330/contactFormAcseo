@@ -1,0 +1,6 @@
+{% for message in messages %}
+    {% set color = message.processed ? 'success' : 'danger' %}
+    <div class="w-100 p-2 m-1 message-item bg-{{ color }} text-white" data-message-id="{{ message.id }}">
+       <span>Message reçu le {{ message.date|date('d/m/Y') }} à : {{ message.date|date('H:i') }}</span>
+    </div>
+{% endfor %}

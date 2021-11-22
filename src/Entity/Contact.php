@@ -22,6 +22,7 @@ class Contact
     private $folderName;
 
     #[ORM\OneToMany(mappedBy: 'contact', targetEntity: Message::class, orphanRemoval: true)]
+    #[ORM\OrderBy(['date' => 'DESC'])]
     private $messages;
 
     public function __construct()

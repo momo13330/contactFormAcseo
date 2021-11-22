@@ -1,0 +1,5 @@
+{% for contact in contacts %}
+    <div class="w-100 p-2 m-1 contact-item" data-contact-id="{{ contact.id }}" style="background-color: lightsteelblue">
+       <span>{{ contact.email }} <i class="bi bi-caret-right-fill"></i></span>
+    </div>
+{% endfor %}

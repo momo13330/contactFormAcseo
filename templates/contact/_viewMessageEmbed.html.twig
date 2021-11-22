@@ -1,0 +1,16 @@
+{% if data is defined and data is not empty %}
+    <div class="border border-2 border-secondary rounded">
+        <div class="m-2">
+            <b>Nom : </b><br>{{ data.name }}
+        </div>
+        <div class="m-2">
+            <b>Email : </b><br>{{ data.email }}
+        </div>
+        <div class="m-2">
+            <b>Message : </b><br>{{ data.message }}
+        </div>
+        <div class="m-4">
+            <a href="#" class="btn btn-primary">Marquer comme traité</a>
+        </div>
+    </div>
+{% endif %}
