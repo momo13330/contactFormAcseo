@@ -2,10 +2,10 @@
 
 namespace App\Service;
 
-use PHPUnit\Util\Exception;
+use App\Entity\Message;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Filesystem\Filesystem;
-use function PHPUnit\Framework\throwException;
+use Symfony\Component\Finder\Finder;
 
 class FileService
 {
@@ -13,9 +13,9 @@ class FileService
     {
         try {
             $filesystem = new Filesystem();
-            $finalPath = $directoryPath.'/'.$fileName;
+            $finalPath = $directoryPath.$fileName;
             if(!$filesystem->exists($directoryPath)){
-                $filesystem->mkdir($directoryPath, 755);
+                $filesystem->mkdir($directoryPath);
             }
             $filesystem->dumpFile($finalPath, $dataJson);
             return $filesystem->exists($finalPath);
@@ -23,4 +23,29 @@ class FileService
             return false;
         }
     }
+
+    public function getJsonFileContent(Message $message, $fileDir): array
+    {
+        $finder = new Finder();
+        $finder->files()->in($fileDir);
+        $data = [];
+        foreach ($finder as $file) {
+            if($file->getFilename() === $message->getFileName()){
+                $content = $file->getContents();
+                $data = json_decode($content, true);
+            }
+        }
+        return $data;
+    }
+
+    public function removeFile(string $filePath): bool
+    {
+        $fileDeleted = false;
+        $fileExist = file_exists($filePath);
+        if($fileExist){
+           $fileDeleted = unlink($filePath);
+        }
+        return $fileDeleted;
+    }
+
 }

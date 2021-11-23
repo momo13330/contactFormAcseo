@@ -113,7 +113,7 @@ class ContactService
         // on encode l'array data en json
         $dataJson = json_encode($data, JSON_THROW_ON_ERROR);
         $kernelDir = $this->parameterBag->get('kernel.project_dir');
-        $directoryPath = $kernelDir.'/Files/Contacts/'.$contact->getFolderName();
+        $directoryPath = $kernelDir.'/Files/Contacts/'.$contact->getFolderName().'/';
 
         return $this->fileService->saveJsonFile($directoryPath, $message->getFileName(), $dataJson);
     }

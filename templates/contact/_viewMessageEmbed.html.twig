@@ -1,5 +1,5 @@
 {% if data is defined and data is not empty %}
-    <div class="border border-2 border-secondary rounded">
+    <div id="content-message-{{ messageId }}" class="border border-2 border-secondary rounded">
         <div class="m-2">
             <b>Nom : </b><br>{{ data.name }}
         </div>
@@ -9,8 +9,17 @@
         <div class="m-2">
             <b>Message : </b><br>{{ data.message }}
         </div>
-        <div class="m-4">
-            <a href="#" class="btn btn-primary">Marquer comme traité</a>
+        <div class="d-flex mt-4">
+            {% if not processed %}
+                <div class="m-2">
+                    <a href="#" id="btn-processed-message" class="btn btn-primary" data-message-id="{{ messageId }}">
+                        Marquer comme traité</a>
+                </div>
+            {% endif %}
+            <div class="m-2">
+                <a href="#" id="btn-remove-message" class="btn btn-danger" data-message-id="{{ messageId }}">Supprimer</a>
+            </div>
         </div>
+
     </div>
 {% endif %}
