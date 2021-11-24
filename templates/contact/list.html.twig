@@ -26,9 +26,9 @@
             </div>
         </div>
     </div>
+{% endblock %}
 
-    {% block javascripts %}
-        {{ parent() }}
-        {{ encore_entry_script_tags('gestionContact') }}
-    {% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('gestionContact') }}
 {% endblock %}
