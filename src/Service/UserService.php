@@ -26,7 +26,7 @@ class UserService
         if (!$user) {
             $user = new User();
             $user->setEmail($params['email']);
-            $user->setRoles($params['roles']);
+            $user->setRoles([$params['roles']]);
             $user->setPassword($this->userPasswordHasherInterface->hashPassword(
                 $user,
                 $params['plainPassword']
