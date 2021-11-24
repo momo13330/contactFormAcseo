@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Contact form Acseo{% endblock %}</title>
-    {# Run `composer require symfony/webpack-encore-bundle`
-           and uncomment the following Encore helpers to start using Symfony UX #}
+
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
 
     {% block javascripts %}
+        <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
         {{ encore_entry_script_tags('app') }}
     {% endblock %}
+
 </head>
 <body>
 
@@ -21,26 +23,8 @@
     {{ include('navbar/navbar.html.twig') }}
 {% endif %}
 
-{% for message in app.flashes('success') %}
-    <div class="alert alert-success">
-        {{ message }}
-    </div>
-{% endfor %}
-{% for message in app.flashes('warning') %}
-    <div class="alert alert-warning">
-        {{ message }}
-    </div>
-{% endfor %}
-<script>
-    (function () {
-        let alertsMessage = document.getElementsByClassName('alert');
-        Array.from(alertsMessage).forEach(function (alert) {
-            setTimeout(function () {
-                alert.remove();
-            }, 2000)
-        });
-    })();
-</script>
+{{ include('_flashbag.html.twig') }}
+
 {% block body %}{% endblock %}
 </body>
 </html>
