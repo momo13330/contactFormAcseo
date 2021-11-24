@@ -72,13 +72,13 @@ class CreateUserCommand extends Command
             }
 
             // test Role
-            $arrayRole = ['ROLE_USER', 'ROLE_ADMIN', 'ROLE_SUPER_ADMIN'];
+            $arrayRole = ['ROLE_USER', 'ROLE_ADMIN'];
             if (!in_array($role, $arrayRole)
             ) {
                 $output->writeln("<error>Role invalid ! </error> Merci de choisir parmi un des rôles suivants. ");
                 $helper = $this->getHelper('question');
                 $question = new ChoiceQuestion(
-                    'Role valide : (defaut : ROLE_VISITEUR ) ',
+                    'Role valide : (defaut : ROLE_USER ) ',
                     $arrayRole,
                     0
                 );
